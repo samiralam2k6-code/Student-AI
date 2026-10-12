@@ -402,6 +402,19 @@
   // Firebase Authentication
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
+    getRedirectResult(auth)
+  .then((result) => {
+    if (result?.user) {
+      window.dispatchEvent(
+        new CustomEvent("firebaseUserReady", {
+          detail: result.user
+        })
+      );
+    }
+  })
+  .catch((error) => {
+    console.error("Google redirect login error:", error);
+  });
 
 
   // Google Login function
