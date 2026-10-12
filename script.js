@@ -1442,17 +1442,10 @@ logoutButton.addEventListener(
 window.addEventListener(
     "firebaseUserReady",
     event => {
-
-        const user =
-            event.detail;
+        const user = event.detail;
 
         if (user) {
-
             openApp(user);
-
-        } else {
-
-            closeApp();
         }
     }
 );
