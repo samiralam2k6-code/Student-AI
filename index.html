@@ -404,22 +404,26 @@
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
   onAuthStateChanged(auth, (user) => {
-    window.dispatchEvent(
-      new CustomEvent("firebaseUserReady", {
-        detail: user
-      })
-    );
-  });
+  window.currentFirebaseUser = user;
+
+  window.dispatchEvent(
+    new CustomEvent("firebaseUserReady", {
+      detail: user
+    })
+  );
+});
 
   getRedirectResult(auth)
   .then((result) => {
     if (result?.user) {
-      window.dispatchEvent(
-        new CustomEvent("firebaseUserReady", {
-          detail: result.user
-        })
-      );
-    }
+  window.currentFirebaseUser = result.user;
+
+  window.dispatchEvent(
+    new CustomEvent("firebaseUserReady", {
+      detail: result.user
+    })
+  );
+}
   })
   .catch((error) => {
     console.error("Google redirect login error:", error);
