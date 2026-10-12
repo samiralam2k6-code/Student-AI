@@ -125,7 +125,9 @@ function setAuthMode(mode) {
 loginTab.addEventListener("click", () => {
     setAuthMode("login");
 });
-
+if (window.currentFirebaseUser) {
+    openApp(window.currentFirebaseUser);
+}
 
 signupTab.addEventListener("click", () => {
     setAuthMode("signup");
