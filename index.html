@@ -373,16 +373,16 @@
   import { getAnalytics } 
     from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
 
-  import {
+ import {
   getAuth,
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-  // Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyACSJbTjVTiddT3N0TCD4n7fUHpTXC_XUc",
     authDomain: "student-ai-862f1.firebaseapp.com",
@@ -405,15 +405,9 @@
 
 
   // Google Login function
-  window.googleSignIn = async function () {
-
-    const result = await signInWithPopup(
-      auth,
-      googleProvider
-    );
-
-    return result.user;
-  };
+window.googleSignIn = async function () {
+  await signInWithRedirect(auth, googleProvider);
+};
    
   window.firebaseSignUp = async function (name, email, password) {
 
