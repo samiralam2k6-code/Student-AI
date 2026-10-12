@@ -574,7 +574,7 @@ updateDashboard();
 
         const response =
             await fetch(
-                "http://localhost:3000/chat",
+                "https://student-ai-gy7i.onrender.com/chat",
                 {
                     method: "POST",
 
