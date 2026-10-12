@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student AI</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['\\(', '\\)']],
+            displayMath: [['\\[', '\\]']]
+        },
+        svg: {
+            fontCache: 'global'
+        }
+    };
+</script>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+<script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+    mermaid.initialize({
+        startOnLoad: false,
+        theme: "default"
+    });
+
+    window.mermaid = mermaid;
+</script>
+</head>
+
+<body>
+
+<div id="authScreen" class="auth-screen">
+
+    <div class="auth-card">
+
+        <div class="logo">🎓</div>
+
+        <h1>Student AI</h1>
+
+        <p class="auth-subtitle">
+            Your personal AI study assistant
+        </p>
+
+        <div class="auth-tabs">
+
+            <button
+                id="loginTab"
+                class="auth-tab active"
+            >
+                Login
+            </button>
+
+            <button
+                id="signupTab"
+                class="auth-tab"
+            >
+                Sign Up
+            </button>
+
+        </div>
+        <button id="googleLoginButton" class="google-button">
+    <span class="google-icon">G</span>
+    Continue with Google
+</button>
+
+<div class="auth-divider">
+    <span>or</span>
+</div>
+
+        <input
+            id="nameInput"
+            class="auth-input hidden"
+            type="text"
+            placeholder="Your name"
+        >
+
+        <input
+            id="emailInput"
+            class="auth-input"
+            type="email"
+            placeholder="Email"
+        >
+
+        <input
+            id="passwordInput"
+            class="auth-input"
+            type="password"
+            placeholder="Password"
+        >
+
+        <button
+            id="authButton"
+            class="auth-button"
+        >
+            Login
+        </button>
+
+        <p
+            id="authMessage"
+            class="auth-message"
+        ></p>
+
+        <p class="demo-note">
+            Demo account data is stored only in this browser.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div id="appScreen" class="app hidden">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-top">
+
+            <h2>🎓 Student AI</h2>
+
+            <button
+                class="new-chat"
+                id="newChatButton"
+            >
+                + New Chat
+            </button>
+
+            <input
+                type="text"
+                class="search"
+                placeholder="Search chats..."
+                id="searchInput"
+            >
+
+        </div>
+
+
+        <div class="history">
+
+            <p class="history-title">
+                Recent Chats
+            </p>
+
+            <div
+                class="recent-chats"
+                id="recentChats"
+            ></div>
+
+        </div>
+
+
+        <div class="study-tools">
+
+            <p class="history-title">
+                Study Tools
+            </p>
+
+            <button
+                class="tool-btn"
+                data-mode="notes"
+            >
+                📝 Notes
+            </button>
+
+            <button
+                class="tool-btn"
+                data-mode="mcqs"
+            >
+                ❓ MCQs
+            </button>
+
+            <button
+                class="tool-btn"
+                data-mode="explain"
+            >
+                💡 Explain Topic
+            </button>
+
+            <button
+                class="tool-btn"
+                data-mode="exam"
+            >
+                📋 Exam Answer
+            </button>
+            <button
+    class="tool-btn"
+    data-mode="quiz"
+>
+    🧠 Quiz
+</button>
+
+        </div>
+
+
+        <div class="sidebar-bottom">
+
+            <button id="dashboardButton">
+                📊 Dashboard
+            </button>
+
+            <button id="logoutButton">
+                🚪 Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <button
+                class="menu-btn"
+                id="menuButton"
+            >
+                ☰
+            </button>
+
+            <span>Student AI</span>
+
+            <div class="top-user">
+                <span id="topUserName">
+                    Student
+                </span>
+            </div>
+
+        </header>
+
+
+        <section class="chat-area">
+            <div class="conversation-scroll" id="conversationScroll">
+            
+            
+
+            <div
+                class="welcome"
+                id="welcome"
+            >
+
+                <h1>
+                    How can I help you study?
+                </h1>
+
+                <p>
+                    Ask questions, make notes,
+                    generate MCQs, or prepare
+                    for exams.
+                </p>
+
+            </div>
+
+
+            <div
+                class="dashboard"
+                id="dashboard"
+            >
+
+                <h1>📊 Study Dashboard</h1>
+
+                <p class="dashboard-subtitle">
+    Welcome back,
+    <strong id="dashboardName">
+        Student
+    </strong>
+</p>
+
+<p class="dashboard-email" id="dashboardEmail">
+    student@example.com
+</p>
+
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <span>💬</span>
+                        <h3 id="chatCount">0</h3>
+                        <p>Chats</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <span>❓</span>
+                        <h3 id="questionCount">0</h3>
+                        <p>Questions</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <span>📝</span>
+                        <h3 id="notesCount">0</h3>
+                        <p>Study Notes</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <span>🎯</span>
+                        <h3>Ready</h3>
+                        <p>For Learning</p>
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <h2>🚀 Start Studying</h2>
+
+                    <p>
+                        Choose a study tool from
+                        the sidebar or ask anything
+                        in the chat.
+                    </p>
+
+                    <button
+                        id="startChatButton"
+                        class="primary-dashboard-button"
+                    >
+                        Start New Chat
+                    </button>
+
+                </div>
+
+            </div>
+            
+            
+            <div
+                class="message-area"
+                id="messageArea"
+            ></div>
+            </div>
+
+            <div class="input-container">
+
+                <textarea
+                    id="userInput"
+                    placeholder="Ask anything about your studies..."
+                    rows="1"
+                ></textarea>
+
+                <button id="sendBtn">
+                    ↑
+                </button>
+
+            </div>
+
+
+            <p class="disclaimer">
+                Student AI can make mistakes.
+                Check important information.
+            </p>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="script.js"></script>
+<script type="module">
+
+  // Firebase SDK
+  import { initializeApp } 
+    from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+  import { getAnalytics } 
+    from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
+
+  import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+  // Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyACSJbTjVTiddT3N0TCD4n7fUHpTXC_XUc",
+    authDomain: "student-ai-862f1.firebaseapp.com",
+    projectId: "student-ai-862f1",
+    storageBucket: "student-ai-862f1.firebasestorage.app",
+    messagingSenderId: "684691656298",
+    appId: "1:684691656298:web:821eb5eb01f8e0acd08413",
+    measurementId: "G-RV3077SD85"
+  };
+
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+
+  // Firebase Authentication
+  const auth = getAuth(app);
+  const googleProvider = new GoogleAuthProvider();
+
+
+  // Google Login function
+  window.googleSignIn = async function () {
+
+    const result = await signInWithPopup(
+      auth,
+      googleProvider
+    );
+
+    return result.user;
+  };
+   
+  window.firebaseSignUp = async function (name, email, password) {
+
+  const result =
+    await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+  await updateProfile(
+    result.user,
+    {
+      displayName: name
+    }
+  );
+
+  return result.user;
+};
+
+
+window.firebaseSignIn = async function (email, password) {
+
+  const result =
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+  return result.user;
+};
+
+
+window.firebaseSignOut = async function () {
+
+  await signOut(auth);
+
+};
+
+  window.googleSignOut = async function () {
+    await signOut(auth);
+};
+
+</script>
+
+</body>
+
+</html>
