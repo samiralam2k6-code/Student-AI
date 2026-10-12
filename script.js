@@ -1335,68 +1335,32 @@ authButton.addEventListener(
 
 
 // ========================================
+// ========================================
 // GOOGLE LOGIN
 // ========================================
 
-googleLoginButton.addEventListener(
-    "click",
-    async () => {
+googleLoginButton.addEventListener("click", async () => {
+    try {
+        googleLoginButton.disabled = true;
 
-        try {
-
-            googleLoginButton.disabled =
-                true;
-
-
-            if (
-                typeof window.googleSignIn !==
-                "function"
-            ) {
-
-                throw new Error(
-                    "Firebase load nahi hua. Page refresh karo."
-                );
-            }
-
-
-            const user =
-                await window.googleSignIn();
-
-
-            openApp(user);
-
-
-        } catch (error) {
-
-            console.error(error);
-
-
-            if (
-                error.code ===
-                "auth/popup-closed-by-user"
-            ) {
-
-                showAuthMessage(
-                    "Google login cancel ho gaya."
-                );
-
-            } else {
-
-                showAuthMessage(
-                    error.message ||
-                    "Google login failed."
-                );
-            }
-
-
-        } finally {
-
-            googleLoginButton.disabled =
-                false;
+        if (typeof window.googleSignIn !== "function") {
+            throw new Error(
+                "Firebase load nahi hua. Page refresh karo."
+            );
         }
-    }
-);
 
+        await window.googleSignIn();
+
+    } catch (error) {
+        console.error("Google login error:", error);
+
+        showAuthMessage(
+            error.message || "Google login failed."
+        );
+
+        googleLoginButton.disabled = false;
+    }
+});
 
 // ========================================
 // LOGOUT
