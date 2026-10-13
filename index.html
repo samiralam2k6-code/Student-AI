@@ -376,7 +376,7 @@
  import {
   getAuth,
   GoogleAuthProvider,
-  signInWithRedirect,
+  signInWithPopup,
   getRedirectResult,
   onAuthStateChanged,
   signOut,
@@ -430,7 +430,8 @@
   });
   // Google Login function
   window.googleSignIn = async function () {
-  await signInWithRedirect(auth, googleProvider);
+  const result = await signInWithPopup(auth, googleProvider);
+  return result.user;
 };
    
   window.firebaseSignUp = async function (name, email, password) {
