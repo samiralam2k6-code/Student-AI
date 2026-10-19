@@ -1,2 +1,2 @@
 # Student-AI
-student-ai-vert-beta.vercel.app
+https://student-ai-vert-beta.vercel.app/
